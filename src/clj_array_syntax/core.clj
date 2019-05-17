@@ -1,21 +1,27 @@
 (ns clj-array-syntax.core)
 
 
-(defn parse-index-expr [bracket-notation]
- (re-find #"\[(.+)\]" "[0]"))
+(defn- parse-index-expr [bracket-notation]
+ (-> bracket-notation
+   (str)
+   (.replace "[" "")
+   (.replace "]" "")
+   (read-string)))
 
-(parse-index-expr "[0]")
+; Supports array access syntax, e.g.
+; an-array[0][1][2]
+; At some point, re-write to make a master macro
+; that can do access or update?
+(defmacro array-get
+  [& body]
+  (let [array-name (first body)
+        index-exprs (map parse-index-expr (rest body))]
+    `(aget ~array-name ~@index-exprs)))
 
-(defmacro array-op
- [& forms]
- (let [arr-name (first forms)]
-   (println "arr-name: " arr-name)
-   (doall (map println forms))
-   'forms))
 
-(macroexpand '(array-op an-array[0][1] = 5.0))
-; => (aget an-array 0 1)
+(macroexpand '(array-get arr[ 0 ][ 1 ][(inc 1)]))
+; => (clojure.core/aget arr 0 1 (inc 1))
 
-(macroexpand '(array-op a[0] = 1.0))
-
-(macroexpand '(array-op a[0][1][2]))
+(def a (double-array [1.0 2.0 3.0]))
+(array-get a[(inc 1)])
+; => 3.0     (which is a[2])
