@@ -1,4 +1,5 @@
 # clj-array-syntax
+<<<<<<< HEAD
 [![Build Status](https://travis-ci.org/jamesvickers19/clj-array-syntax.svg?branch=master)](https://travis-ci.org/jamesvickers19/clj-array-syntax)
 [![codecov](https://codecov.io/gh/jamesvickers19/clj-array-syntax/branch/master/graph/badge.svg)](https://codecov.io/gh/jamesvickers19/clj-array-syntax)
 [![Clojars Project](https://img.shields.io/clojars/v/clj-array-syntax.svg)](https://clojars.org/clj-array-syntax)
@@ -19,3 +20,6 @@ Copyright © 2018 FIXME
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
+=======
+A clojure(script) library for array syntax.
+>>>>>>> 2004962f02d7c97838713d1e2537a73bbd07d8ad
